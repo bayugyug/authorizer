@@ -27,55 +27,55 @@ ${app_name}
 "
 
 _runPrep(){
-    case "${action}" in
-        ci-lint)
-            BIN_CI_LINTER=$(go env GOPATH)/bin/golangci-lint
-            echo "run linter: ${BIN_CI_LINTER}" 
+	case "${action}" in
+		ci-lint)
+			BIN_CI_LINTER=$(go env GOPATH)/bin/golangci-lint
+			echo "run linter: ${BIN_CI_LINTER}" 
 
-            if [[ ! -x "${BIN_CI_LINTER}" ]]
-            then
-                echo "
-                # binary will be $(go env GOPATH)/bin/golangci-lint
-                curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.53.3
+			if [[ ! -x "${BIN_CI_LINTER}" ]]
+			then
+				echo "
+				# binary will be $(go env GOPATH)/bin/golangci-lint
+				curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.53.3
 
 
-                Trying to install the linter below
+				Trying to install the linter below
 
-                "
-                curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.53.3
-            fi
+				"
+				curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.53.3
+			fi
 
-            # lint
-            golangci-lint run
-            echo "lint-result: $?"
+	    # lint
+	    golangci-lint run
+	    echo "lint-result: $?"
 
-            ;;
-        ci-test)
-            echo "unit testing"
+	    ;;
+    ci-test)
+	    echo "unit testing"
 	    export GOCOVERDIR=/tmp
-            go install github.com/onsi/ginkgo/v2/ginkgo
-            go get github.com/onsi/gomega/...
-            ginkgo -v --fail-fast \
-                -r --randomize-suites \
-                --trace --race --show-node-events \
-                -covermode=atomic \
-                -coverprofile=test.coverprofile \
-                --output-dir=/tmp/
-                            return $?
-                            ;;
-                        clean)
-                            echo "free up"
-                            rm -fr logs/*.log   2>/dev/null
-                            rm -fr temp/*       2>/dev/null
-                            ;;
+	    go install github.com/onsi/ginkgo/v2/ginkgo
+	    go get github.com/onsi/gomega/...
+	    ginkgo -v --fail-fast \
+		    -r --randomize-suites \
+		    --trace --race --show-node-events \
+		    -covermode=atomic \
+		    -coverprofile=test.coverprofile \
+		    --output-dir=/tmp/
+				return $?
+				;;
+			clean)
+				echo "free up"
+				rm -fr logs/*.log   2>/dev/null
+				rm -fr temp/*       2>/dev/null
+				;;
 
-                        *)
-                            echo "action not supported"
-                            ;;
-                    esac
+			*)
+				echo "action not supported"
+				;;
+		esac
 
-                    return 0
-                }
+		return 0
+	}
 
 _runPrep "$@"
 
