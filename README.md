@@ -1,6 +1,6 @@
 # authorizer
 
-## Package can securely sign / un-sign a request payload 
+## Package will Securely Sign / Un-sign a payload
 	- Prerequisite must have a valid RSA private/public certificates
 
 
@@ -79,7 +79,6 @@ if err != nil {
 ```go
 
 // salt, publicKey, privateKey
-// these variables should be in config file & in the S3 config for ( private & secrets )
     
     
 opts := authorizer.Options{
