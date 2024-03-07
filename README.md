@@ -5,6 +5,8 @@
 
 
 
+## Badge
+[![build](https://github.com/bayugyug/authorizer/actions/workflows/ci.yml/badge.svg)](https://github.com/bayugyug/authorizer/actions/workflows/ci.yml)
 
 
 ### How to use the package
