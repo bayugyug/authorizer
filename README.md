@@ -36,7 +36,6 @@ import (
 ```go
 
 // salt, publicKey, privateKey
-// these variables should be in config file & in the S3 config for ( private & secrets )
     
     
 opts := authorizer.Options{
@@ -142,11 +141,11 @@ openssl req -new -x509 -key $PRIVKEY -out $CACERT -days 365 -subj "/C=SG/ST='Sin
 openssl x509 -inform PEM -in $CACERT -outform DER -out $DERCERT
 openssl x509 -inform der -in $DERCERT -noout -pubkey > $PUBKEY
 
-# PUBLIC KEY must be in S3 bucket config
+# PUBLIC KEY
 openssl rsa -pubin -in $PUBKEY -RSAPublicKey_out | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/\\n/g'
 
 
-# PRIVATE KEY must be in S3 bucket config
+# PRIVATE KEY
 cat $PRIVKEY | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/\\n/g'
 
 ```
