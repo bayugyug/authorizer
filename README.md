@@ -137,7 +137,7 @@ PUBKEY=~/tmp/${PREFIX}-pub.txt
 
 # generate
 openssl genrsa -out $PRIVKEY
-openssl req -new -x509 -key $PRIVKEY -out $CACERT -days 365 -subj "/C=SG/ST='Singapore'/L='Singapore/O=Bayugismo/OU='Engineering'/CN=*.pacenow.co"
+openssl req -new -x509 -key $PRIVKEY -out $CACERT -days 365 -subj "/C=SG/ST='Singapore'/L='Singapore/O=Bayugismo/OU='Engineering'/CN=*.bayugismo.space"
 openssl x509 -inform PEM -in $CACERT -outform DER -out $DERCERT
 openssl x509 -inform der -in $DERCERT -noout -pubkey > $PUBKEY
 
