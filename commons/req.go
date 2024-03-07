@@ -5,7 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	ioutil "io"
 	"net/http"
 	"os"
 	"strings"

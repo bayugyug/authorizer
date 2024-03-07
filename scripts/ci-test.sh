@@ -2,26 +2,26 @@
 
 BUILDFLAGS=
 
-COVERPROF="/tmp/test.coverprofile"
+COVERPROF="test.coverprofile"
 
 echo "COVERPROF: $(ls -ltra ${COVERPROF} 2>/dev/null)"
 
-SKIP_PKGS="payment"
-# try including it in the test (no skip)
-SKIP_PKGS="yaypay"
+export GOCOVERDIR=/tmp
 
 #free
 rm -f ${COVERPROF:-xxxx}
 
 #run
-ginkgo -v -failFast ${BUILDFLAGS} -r --randomizeSuites --trace --race --progress -covermode=atomic -coverprofile=test.coverprofile -outputdir=/tmp/  -skipPackage=$SKIP_PKGS
+ginkgo -v \
+	-r \
+	--randomize-suites \
+	--trace --race --show-node-events \
+	--cover \
+	--covermode=atomic \
+	--coverprofile=$COVERPROF \
+	--output-dir=/tmp
 ret=$?
 
-#dump
-echo "ret:$ret"
 
-[[ -s "${COVERPROF}" ]] && {
-  echo "okay"
-}
 
 exit $ret

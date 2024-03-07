@@ -3,16 +3,18 @@ package commons
 import (
 	"bytes"
 	"io"
-	"io/ioutil"
+	ioutil "io"
 	"mime/multipart"
 	"net/http"
 	"net/http/httptest"
 	"path/filepath"
 	"strings"
 
+	"os"
+
 	"github.com/gabriel-vasile/mimetype"
 	"github.com/go-chi/chi"
-	"github.com/onsi/ginkgo"
+	"github.com/onsi/ginkgo/v2"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -29,7 +31,7 @@ func HTTPDummyReq(router *chi.Mux, method, path string, hdrs map[string]string,
 		req.Header.Set(k, v)
 	}
 	router.ServeHTTP(w, req)
-	respBody, err := ioutil.ReadAll(w.Body)
+	respBody, err := io.ReadAll(w.Body)
 	if err != nil {
 		ginkgo.Fail(err.Error())
 	}
@@ -74,7 +76,7 @@ func HTTPDummyRouting(handler http.Handler, method, path string, hdrs map[string
 // DummyUpload ...
 func DummyUpload(router *chi.Mux, uriPath, paramName, fileName, formType string) (*httptest.ResponseRecorder, []byte, error) {
 
-	contents, err := ioutil.ReadFile(fileName)
+	contents, err := os.ReadFile(fileName)
 	if err != nil {
 		return nil, nil, err
 	}

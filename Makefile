@@ -11,20 +11,20 @@ clean:
 	find . -type f -name '*coverage.xml'  -exec rm -f {} \;
 	find . -type f -name '*coverage.txt'  -exec rm -f {} \;
 
+ci-test: clean
+	@./scripts/prep.sh ci-test $(NAME)
+
 ci-lint: clean
-	golint ./...
+	@./scripts/prep.sh ci-lint $(NAME)
 
 vet:
-	go vet ${BUILDFLAG} ./...
-
-ci-test: clean
-	./scripts/ci-test.sh
+	@go vet ${BUILDFLAG} ./...
 
 ci-cover:
-	./scripts/ci-cover.sh
+	@./scripts/ci-cover.sh
 
 codecov:
-	./scripts/codecov.sh
+	@./scripts/codecov.sh
 
 proto:
 	go generate ./...

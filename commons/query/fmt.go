@@ -154,9 +154,9 @@ func Values(v interface{}) (url.Values, error) {
 	if val.Kind() != reflect.Struct {
 		return nil, fmt.Errorf("query: Values() expects struct input. Got %v", val.Kind())
 	}
+	//lint:ignore errcheck
+	return values, reflectValue(values, val, "")
 
-	err := reflectValue(values, val, "")
-	return values, err
 }
 
 // reflectValue populates the values parameter from the struct fields in val.
@@ -257,7 +257,7 @@ func reflectValue(values url.Values, val reflect.Value, scope string) error {
 		}
 
 		if sv.Kind() == reflect.Struct {
-			reflectValue(values, sv, name)
+			_ = reflectValue(values, sv, name)
 			continue
 		}
 
