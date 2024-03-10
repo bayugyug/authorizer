@@ -6,7 +6,7 @@ import (
 
 	"github.com/golang-jwt/jwt/v4"
 
-	"github.com/bayugyug/authorizer/commons"
+	"github.com/bayugyug/commons"
 )
 
 //go:generate mockgen -destination ./mock/mock_verifiersvccreator.go -package mock github.com/bayugyug/authorizer VerifierServiceCreator

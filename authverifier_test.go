@@ -17,7 +17,7 @@ import (
 	. "github.com/onsi/gomega"
 
 	"github.com/bayugyug/authorizer"
-	"github.com/bayugyug/authorizer/commons"
+	"github.com/bayugyug/commons"
 )
 
 var _ = Describe("Authverifier", func() {
